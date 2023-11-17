@@ -26,11 +26,7 @@ public void draw()
   Pine.show();
   if (w)
   {
-    if(Math.sqrt(Math. pow((float)Pine.getmyXspeed(), 2) + Math.pow((float)Pine.getmyYspeed(), 2)) < 6)
-    {
-      Pine.accelerate(0.1);
-      Pine.move();
-    }
+    Pine.accelerate(0.1);
     Pine.move();
   } else if (!s && !w)
   {
@@ -40,11 +36,7 @@ public void draw()
 
   if (s)
   {
-    if (Math.sqrt(Math. pow((float)Pine.getmyXspeed(), 2) + Math.pow((float)Pine.getmyYspeed(), 2)) < 6)
-    {
-      Pine.accelerate(-0.1);
-      Pine.move();
-    }
+    Pine.accelerate(-0.1);
     Pine.move();
   }
 
