@@ -18,15 +18,15 @@ public void setup()
 public void draw()
 {
   background(#718EBB);
-  Pine.show();
   for (int s = 0; s < Snowflake.length; s++)
   {
     Snowflake[s].show();
     Snowflake[s].move();
   }
+  Pine.show();
   if (w)
   {
-    if (sqrt((sq((float)Pine.getmyXspeed()) + sq((float)Pine.getmyYspeed()))) < 6)
+    if(Math.sqrt(Math. pow((float)Pine.getmyXspeed(), 2) + Math.pow((float)Pine.getmyYspeed(), 2)) < 6)
     {
       Pine.accelerate(0.1);
       Pine.move();
@@ -40,7 +40,7 @@ public void draw()
 
   if (s)
   {
-    if (sqrt((sq((float)Pine.getmyXspeed()) + sq((float)Pine.getmyYspeed()))) < 6)
+    if (Math.sqrt(Math. pow((float)Pine.getmyXspeed(), 2) + Math.pow((float)Pine.getmyYspeed(), 2)) < 6)
     {
       Pine.accelerate(-0.1);
       Pine.move();
