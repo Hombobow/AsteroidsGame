@@ -6,8 +6,8 @@ class Star //note that this class does NOT extend Floater
   private int myX, myY, myD, mySpeed; 
   public Star()
   {
-    myX = (int)(Math.random() * 581) + 10;
-    myY = (int)(Math.random() * 581) + 10;
+    myX = (int)(Math.random() * 781) + 10;
+    myY = (int)(Math.random() * 781) + 10;
     myD = (int)(10/sqrt(2));
     mySpeed = 1;
     
@@ -16,7 +16,7 @@ class Star //note that this class does NOT extend Floater
   public void move()
   {
     myY += mySpeed;
-    if(myY > 600)
+    if(myY > 800)
     {
       myY = 0;
     }
