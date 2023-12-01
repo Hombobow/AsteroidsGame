@@ -4,65 +4,99 @@ boolean a = false;
 boolean s = false;
 boolean d = false;
 boolean hyper = false;
+boolean mc = false;
+int moons = 10;
 Spaceship Pine = new Spaceship();
 Star[] Snowflake = new Star[100];
+ArrayList <Asteroid> Moons = new ArrayList <Asteroid>();
 
 public void setup()
 {
-  size(600, 600);
+  size(800, 800);
   for (int s = 0; s < Snowflake.length; s++)
   {
     Snowflake[s] = new Star();
   }
+  for (int i = 0; i < moons; i++) {
+    Moons.add(new Asteroid());
+  }
 }
+
 public void draw()
 {
-  background(#718EBB);
-  for (int s = 0; s < Snowflake.length; s++)
-  {
-    Snowflake[s].show();
-    Snowflake[s].move();
-  }
-  Pine.show();
-  if (w)
-  {
-    Pine.accelerate(0.1);
-    Pine.move();
-  } else if (!s && !w)
-  {
-    Pine.setmyXspeed(0);
-    Pine.setmyYspeed(0);
-  }
-
-  if (s)
-  {
-    Pine.accelerate(-0.1);
-    Pine.move();
-  }
-
-  if (a)
-  {
-    Pine.turn(-7);
-  }
-
-  if (d)
-  {
-    Pine.turn(7);
-  }
-
-  if (hyper)
-  {
-    Pine.setmyCenterX((int)(Math.random() * 601));
-    Pine.setmyCenterY((int)(Math.random() * 601));
-    Pine.setmyPointDirection((int)(Math.random() * 361));
-    Pine.setmyXspeed(0);
-    Pine.setmyYspeed(0);
+  if (mc) {
+    background(#718EBB);
     for (int s = 0; s < Snowflake.length; s++)
     {
-      Snowflake[s] = new Star();
+      Snowflake[s].show();
+      Snowflake[s].move();
     }
-    hyper = false;
+
+    for (int i = 0; i < moons; i++) {
+      Moons.get(i).move();
+      Moons.get(i).show();
+    }
+
+    Pine.show();
+    if (w)
+    {
+      if (Math.sqrt(Math. pow((float)Pine.getmyXspeed(), 2) + Math.pow((float)Pine.getmyYspeed(), 2)) < 6)
+      {
+        Pine.accelerate(0.1);
+        Pine.move();
+      }
+      Pine.move();
+    } else if (!s && !w)
+    {
+      Pine.setmyXspeed(0);
+      Pine.setmyYspeed(0);
+    }
+
+    if (s)
+    {
+      if (Math.sqrt(Math. pow((float)Pine.getmyXspeed(), 2) + Math.pow((float)Pine.getmyYspeed(), 2)) < 6)
+      {
+        Pine.accelerate(-0.1);
+        Pine.move();
+      }
+      Pine.move();
+    }
+
+    if (a)
+    {
+      Pine.turn(-7);
+    }
+
+    if (d)
+    {
+      Pine.turn(7);
+    }
+
+    if (hyper)
+    {
+      Pine.setmyCenterX((int)(Math.random() * 801));
+      Pine.setmyCenterY((int)(Math.random() * 801));
+      Pine.setmyPointDirection((int)(Math.random() * 361));
+      Pine.setmyXspeed(0);
+      Pine.setmyYspeed(0);
+      for (int s = 0; s < Snowflake.length; s++)
+      {
+        Snowflake[s] = new Star();
+      }
+      hyper = false;
+    }
+  }else{
+    background(#718EBB);
+    for (int s = 0; s < Snowflake.length; s++)
+    {
+      Snowflake[s].show();
+      Snowflake[s].move();
+    }
   }
+}
+
+public void mousePressed() {
+  mc = true;
 }
 
 public void keyPressed()
