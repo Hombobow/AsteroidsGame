@@ -38,4 +38,12 @@ class Asteroid extends Floater
       myCenterY = height;
     }
   }
+  
+  public double getmyCenterX(){
+    return myCenterX;
+  }
+  
+  public double getmyCenterY(){
+    return myCenterY;
+  }
 }
