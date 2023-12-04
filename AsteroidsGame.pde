@@ -31,10 +31,17 @@ public void draw()
       Snowflake[s].show();
       Snowflake[s].move();
     }
-
+    
+    Pine.show();
+    
     for (int i = 0; i < moons; i++) {
       Moons.get(i).move();
       Moons.get(i).show();
+      if(Moons.get(i).getmyCenterX() == Pine.getmyCenterX() && Moons.get(i).getmyCenterY() == Pine.getmyCenterY()){
+        Moons.set(i, new Asteroid());
+        Moons.get(i).move();
+        Moons.get(i).show();
+      }
     }
 
     Pine.show();
