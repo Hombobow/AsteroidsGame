@@ -31,16 +31,16 @@ public void draw()
       Snowflake[s].show();
       Snowflake[s].move();
     }
-    
+
     Pine.show();
-    
-    for (int i = 0; i < moons; i++) {
+
+    for (int i = 0; i < Moons.size(); i++) {
       Moons.get(i).move();
       Moons.get(i).show();
-      if(Moons.get(i).getmyCenterX() == Pine.getmyCenterX() && Moons.get(i).getmyCenterY() == Pine.getmyCenterY()){
-        Moons.set(i, new Asteroid());
-        Moons.get(i).move();
-        Moons.get(i).show();
+    }
+    for (int i = Moons.size() - 1; i >= 0; i--) {
+      if (Math.sqrt(Math.pow(Moons.get(i).getmyCenterX() - Pine.getmyCenterX(), 2) + Math.pow(Moons.get(i).getmyCenterY() - Pine.getmyCenterY(), 2)) < 5) {
+        Moons.remove(i);
       }
     }
 
@@ -92,7 +92,7 @@ public void draw()
       }
       hyper = false;
     }
-  }else{
+  } else {
     background(#718EBB);
     for (int s = 0; s < Snowflake.length; s++)
     {
