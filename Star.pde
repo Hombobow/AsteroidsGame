@@ -4,21 +4,37 @@ class Star //note that this class does NOT extend Floater
   //myD = diagonal x and y length
   //mySpeed = gravity
   private int myX, myY, myD, mySpeed; 
+  protected double myXspeed, myYspeed, myDeg, startSpeed;
+  
   public Star()
   {
     myX = (int)(Math.random() * 781) + 10;
     myY = (int)(Math.random() * 781) + 10;
     myD = (int)(10/sqrt(2));
     mySpeed = 1;
-    
+    startSpeed = (Math.random() * 5) + 5;
+    myDeg = (Math.random() * 360);
+    myYspeed = Math.sin(myDeg) * startSpeed;
+    myXspeed = Math.cos(myDeg) * startSpeed;
   }
-  
+
   public void move()
   {
     myY += mySpeed;
     if(myY > 800)
     {
       myY = 0;
+    }
+  }
+  
+  public void outMove()
+  {
+    myY += myYspeed;
+    myX += myXspeed;
+    if(myX > 800 || myX < 0 || myY > 800 || myY < 0)
+    {
+      myY = 400;
+      myX = 400;
     }
   }
   
@@ -76,5 +92,12 @@ class Star //note that this class does NOT extend Floater
     vertex(myX + 10, myY - 3);
     vertex(myX + 6, myY);
     endShape(CLOSE);
+  }
+  
+  public void setmyX(int x){
+    myX = x;
+  }
+  public void setmyY(int y){
+    myY = y;
   }
 }
