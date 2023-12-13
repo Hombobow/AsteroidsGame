@@ -4,11 +4,15 @@ boolean a = false;
 boolean s = false;
 boolean d = false;
 boolean hyper = false;
+boolean shoot = false;
 boolean mc = false;
-int moons = 10;
+double cooldown = 0;
+int lives = 3;
+int stockings = 10;
 Spaceship Pine = new Spaceship();
 Star[] Snowflake = new Star[100];
-ArrayList <Asteroid> Moons = new ArrayList <Asteroid>();
+ArrayList <Asteroid> Stocking = new ArrayList <Asteroid>();
+ArrayList <Bullet> acorn = new ArrayList <Bullet>();
 
 public void setup()
 {
@@ -17,13 +21,14 @@ public void setup()
   {
     Snowflake[s] = new Star();
   }
-  for (int i = 0; i < moons; i++) {
-    Moons.add(new Asteroid());
+  for (int i = 0; i < stockings; i++) {
+    Stocking.add(new Asteroid());
   }
 }
 
 public void draw()
 {
+  cooldown -= 1.0 / frameRate;
   if (mc) {
     background(#718EBB);
     for (int s = 0; s < Snowflake.length; s++)
@@ -31,18 +36,39 @@ public void draw()
       Snowflake[s].show();
       Snowflake[s].move();
     }
-
     Pine.show();
-
-    for (int i = 0; i < Moons.size(); i++) {
-      Moons.get(i).move();
-      Moons.get(i).show();
+    for (int i = 0; i < acorn.size(); i++) {
+      if (shoot &&
+        Math.sqrt(Math.pow((float)acorn.get(i).getmyXspeed(), 2) + Math.pow((float)acorn.get(i).getmyYspeed(), 2)) < 6) {
+        acorn.get(i).accelerate(6);
+      }
+      acorn.get(i).show();
+      acorn.get(i).move();
     }
-    for (int i = Moons.size() - 1; i >= 0; i--) {
-      if (Math.sqrt(Math.pow(Moons.get(i).getmyCenterX() - Pine.getmyCenterX(), 2) + Math.pow(Moons.get(i).getmyCenterY() - Pine.getmyCenterY(), 2)) < 5) {
-        Moons.remove(i);
+    shoot = false;
+
+    for (int i = 0; i < Stocking.size(); i++) {
+      Stocking.get(i).move();
+      Stocking.get(i).show();
+    }
+    for (int i = Stocking.size() - 1; i >= 0; i--) {
+      if (dist((float)Stocking.get(i).getmyCenterX(), (float)Stocking.get(i).getmyCenterY(), (float)Pine.getmyCenterX(), (float)Pine.getmyCenterY()) < 6) {
+        Stocking.remove(i);
       }
     }
+
+    for (int i = Stocking.size() - 1; i >= 0; i--) {
+      for (int j = acorn.size() - 1; j >= 0; j--) {
+        if (dist((float)Stocking.get(i).getmyCenterX(), (float)Stocking.get(i).getmyCenterY(), (float)acorn.get(j).getmyCenterX(), (float)acorn.get(j).getmyCenterY()) < 5) {
+          Stocking.remove(i);
+          acorn.remove(j);
+        } else if (acorn.get(j).getmyCenterX() <= 0 || acorn.get(j).getmyCenterX() >= 800|| acorn.get(j).getmyCenterY() <= 0 || acorn.get(j).getmyCenterY() >= 800) {
+          acorn.remove(j);
+        }
+      }
+    }
+
+
 
     Pine.show();
     if (w)
@@ -97,7 +123,7 @@ public void draw()
     for (int s = 0; s < Snowflake.length; s++)
     {
       Snowflake[s].show();
-      Snowflake[s].move();
+      Snowflake[s].outMove();
     }
   }
 }
@@ -131,6 +157,15 @@ public void keyPressed()
   if (key == 'q')
   {
     hyper = true;
+  }
+
+  if (key == ' ') {
+    if (cooldown <= 0)
+    {
+      acorn.add(new Bullet(Pine));
+      shoot = true;
+      cooldown = 5;
+    }
   }
 }
 
